@@ -1,0 +1,852 @@
+@import "https://fonts.googleapis.com/css?family=Tahoma:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic";
+@import "./css/reset.css";
+@import "./css/burger.css";
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  color: #ffffff;
+  font-family: Tahoma, sans-serif;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.open {
+  display: flex !important;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(100%);
+}
+
+/* Slinkimo juostos stilius */
+
+/* ::-webkit-scrollbar {
+  height: 7px;
+  background-color: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 4px;
+} */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  min-height: 60px;
+  padding: 10px 20px;
+  color: #faf6f2;
+  background: rgb(0 0 0 / 0.6);
+}
+
+.left {
+  display: flex;
+  flex-grow: 0;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 10px;
+  padding: 0 15px;
+  color: #faf6f2;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.nav {
+  display: flex;
+  flex-grow: 1;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  font-weight: 700;
+  transition: transform 0.3s ease;
+}
+
+.nav a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5px;
+  color: #ffffff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.daymeny-item a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  color: #333333;
+  text-decoration: none;
+  border: 1px solid #888888;
+  border-radius: 3px;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.nav a:hover,
+.nav a.active {
+  color: #1976d2;
+  text-decoration: underline;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+/* Datos rodymas Headeryje - PAGAL NUSTATYMUS VISADA PASLĖPTA, išskyrus mažus ekranus */
+#header-date-display-row {
+  display: none;
+}
+
+.nav-container {
+  background-color: #f8f8f8;
+}
+
+.days-and-archive-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1150px;
+  margin: 10px auto; /* Centruojame bloką puslapyje */
+  padding: 4px 0; /* Horizontalus padding pašalintas arba sumažintas */
+  background: inherit;
+}
+
+/* Archyvo rodyklės (daymenu) */
+.daymenu {
+  display: flex;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.daymeny-item {
+  list-style: none;
+}
+.daymeny-item a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #888;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+}
+.daymeny-item a:hover {
+  background-color: #e0e0e0;
+}
+
+/* Datos ir kategorijų mygtukų bendras stilius */
+.day,
+.cat {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  min-width: 80px;
+  max-width: 120px;
+  margin: 8px 0;
+  padding: 8px 10px;
+  color: #1976d2;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 500;
+  text-align: center;
+  background: #ffffff;
+  background-color: transparent;
+  border: 1px solid #888888;
+  border-radius: 3px;
+  outline: none;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+  cursor: pointer;
+  overflow-wrap: break-word;
+  white-space: normal;
+  word-break: break-all;
+}
+
+.day.active,
+.day:hover,
+.cat.active,
+.cat:hover {
+  color: #ffffff;
+  background: #1976d2;
+  box-shadow: 0 4px 12px rgb(25 118 210 / 0.12);
+}
+
+/* Dienų ir Kategorijų navigacijos bendros savybės */
+.days-nav,
+.categories-nav {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-grow: 1;
+  gap: 2px;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0;
+  padding: 0 10px;
+  white-space: nowrap;
+  background: inherit;
+  overflow-x: auto;
+  box-shadow: none;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.days-nav {
+  display: flex;
+  margin-bottom: 5px;
+  padding: 10px 12px;
+  white-space: nowrap;
+  background: inherit;
+  overflow-x: auto;
+
+  /* box-shadow: 0 2px 4px rgb(0 0 0 / 0.1); */
+}
+
+.days-nav::-webkit-scrollbar,
+.categories-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.days-nav .day {
+  display: inline-flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  min-width: 60px;
+  height: 80px;
+  margin: 10px 0;
+  padding: 4px 6px;
+  color: #d32f2f;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 500;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  white-space: normal;
+  background-color: #ffffff;
+  overflow: hidden;
+  outline: none;
+  scroll-snap-align: center;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    box-shadow 0.2s;
+  cursor: pointer;
+  overflow-wrap: break-word;
+}
+
+.days-nav .day.active,
+.days-nav .day:hover {
+  color: #ffffff;
+  background: #d32f2f;
+  box-shadow: 0 4px 12px rgb(60 60 60);
+}
+
+.days-nav .day span:first-child {
+  font-size: 16px;
+}
+
+.days-nav .day span:last-child {
+  color: #888888;
+  font-size: 22px;
+}
+
+.days-nav .day.active span:last-child {
+  color: rgb(0 0 0);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.days-nav .day.today-btn {
+  color: #000000;
+  background-color: #00ffff;
+  border: 2px solid #888888;
+  box-shadow: 0 4px 12px rgb(60 60 60);
+}
+
+.days-nav .day.today-btn.active,
+.days-nav .day.today-btn:hover {
+  color: #ffffff;
+  background: #d32f2f;
+  box-shadow: 0 4px 12px rgb(60 60 60);
+}
+
+/* Datos ir kategorijų eilutė (Header viduje) */
+.category-date-row {
+  display: flex;
+  flex-grow: 1;
+  justify-content: flex-start;
+  align-items: center;
+
+  /* max-width: 1250px; */
+  margin: 0 10px;
+  padding: 0;
+  color: #faf6f2;
+  background: none;
+  box-shadow: none;
+}
+
+.category-date-row .col-xs-2 {
+  flex-shrink: 0;
+  min-width: auto;
+  padding: 0;
+}
+
+.date-title {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.5em;
+  font-weight: 700;
+  text-align: center;
+}
+
+.date-title small {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #ffffff;
+  font-size: 0.7em;
+  font-weight: 400;
+}
+
+.categories-nav {
+  /* margin-left: 70px; */
+
+  /* margin-right: 70px; */
+  display: flex;
+
+  /* box-shadow: 0 2px 4px rgb(0 0 0 / 0.1); */
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  height: auto;
+  padding: 0 10px;
+  background: inherit;
+  border-radius: 3px;
+  overflow-x: auto;
+}
+
+.categories-nav .cat {
+  /* height: auto; Leidžia aukščiui plėstis pagal turinį */
+  flex-shrink: 0;
+  min-height: 50px;
+}
+
+.categories-nav .cat.active,
+.categories-nav .cat:hover {
+  color: #ffffff;
+  background: #1976d2;
+  box-shadow: 0 4px 12px rgb(60 60 60);
+}
+
+.categories-nav .cat.today-btn.active,
+.categories-nav .cat.today-btn:hover {
+  color: #ffffff;
+  background: #1976d2;
+  box-shadow: 0 4px 12px rgb(60 60 60);
+}
+
+/* ============================== */
+
+/* MAIN TURINYS IR PAIEŠKA (ATNAUJINTAS CENTRAVIMAS) */
+
+/* ============================== */
+
+.main {
+  flex-grow: 1;
+  padding: 20px 0 40px;
+  background-color: #f8f8f8;
+}
+
+/* Pagrindinis konteineris: Flexbox + relative pozicija */
+.date-and-search-container {
+  /* Būtina tiksliam centravimui */
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: 1250px;
+  min-height: 50px;
+  margin: 0 auto;
+  padding: 0 12px 30px;
+}
+
+/* Datos blokas (kairėje) - PAGAL NUSTATYMUS VISADA PASLĖPTA, išskyrus didelius ekranus */
+#main-date-display-row {
+  z-index: 10;
+  display: none;
+  flex-shrink: 0;
+  width: 100%;
+  margin: 0;
+  margin-left: 30px;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+
+  /* Pagrindinė taisyklė: paslepiame, vėliau rodoma media query */
+}
+
+#main-date-display-row .col-xs-2 {
+  /* nauji */
+  flex-shrink: 0;
+  min-width: auto;
+  padding: 0;
+  text-align: left !important;
+}
+
+#main-date-display-row .date-title {
+  margin: 0;
+  color: #333333;
+  font-size: 1.5em;
+  font-weight: 700;
+  text-align: center;
+}
+
+#main-date-display-row .date-title small {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #555555;
+  font-size: 0.7em;
+  font-weight: 400;
+}
+
+/* Paieškos blokas - TIKSLUS CENTRAVIMAS */
+.epg-search-block {
+  /* Centravimo logika */
+  position: absolute;
+  left: 50%;
+
+  /* Panaikiname seną margin */
+  z-index: 5;
+  width: auto;
+  min-width: 340px;
+  margin: 0;
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+/* HTML faile esantis tuščias tarpas tampa nereikalingas, jei naudojama position: absolute */
+.flex-spacer {
+  display: none;
+}
+
+#epg-search {
+  width: 98%;
+  max-width: 340px;
+  padding: 8px 14px;
+  font-size: 16px;
+  border: 2px solid #1976d2;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgb(25 118 210 / 0.08);
+  outline: none;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+#epg-search:focus {
+  border-color: #d32f2f;
+}
+
+.channels-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 0 12px;
+}
+
+/* ============================== */
+
+/* KANALO KORTELĖ */
+
+/* ============================== */
+
+.channel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 18px 14px 14px;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.04);
+}
+
+.channel-header {
+  display: flex;
+  align-items: center;
+  padding: 0 0 2px;
+  color: #b71c1c;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.channel-icon {
+  width: 36px;
+  height: 36px;
+  margin-right: 8px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.channel-underline {
+  width: 100%;
+  height: 3px;
+  margin-bottom: 12px;
+  background: #d32f2f;
+  border-radius: 2px;
+}
+
+/* Adaptyvaus paveikslėlio taisyklės */
+.program-image {
+  margin: 12px 0;
+  text-align: center;
+}
+
+.program-image img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto 12px;
+}
+
+.program {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.program-time {
+  min-width: 48px;
+  margin-right: 10px;
+  color: #d32f2f;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.program-title-btn {
+  padding: 0;
+  color: #0066cc;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: left;
+  background: none;
+  border: none;
+  outline: none;
+  transition: color 0.2s;
+  cursor: pointer;
+}
+
+.program-title-btn.open,
+.program-title-btn:focus,
+.program-title-btn:hover {
+  color: #d32f2f;
+  text-decoration: underline;
+}
+
+.program-desc {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 6px;
+  color: #444444;
+  font-size: 14px;
+  line-height: 1.4;
+  overflow-wrap: break-word;
+}
+
+.program-desc.open {
+  display: flex;
+}
+
+/* ============================== */
+
+/* FOOTER */
+
+/* ============================== */
+
+.footer {
+  margin-top: auto;
+  padding: 10px 0;
+  color: #faf6f2;
+  text-align: center;
+  background: rgb(0 0 0 / 0.6);
+}
+
+/* ============================== */
+
+/* MEDIA UŽKLAUSOS (RESPONSIVE) */
+
+/* ============================== */
+
+/* 2. VIDUTINIAI EKRANAI IR PLANŠETĖS (Gulsčioji versija): NUO 992px */
+@media (width >= 992px) {
+  /* Paslepia Headerio datą (Gulsčioji versija) */
+  .header #header-date-display-row {
+    display: none;
+  }
+
+  /* Rodo pagrindinio turinio datą (Gulsčioji versija) */
+  .date-and-search-container #main-date-display-row {
+    z-index: 10;
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  /* Centravimas ir slinkties išjungimas dideliems ekranams */
+  .days-nav,
+  .categories-nav {
+    gap: 5px;
+    justify-content: center;
+    padding: 8px 10px;
+    font-size: initial;
+    overflow-x: hidden;
+  }
+
+  .channels-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* 2. VIDUTINIAI EKRANAI: 992px iki 1199.98px (3 stulpeliai) */
+@media (width >= 992px) and (width <= 1199.98px) {
+  .channels-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Meniu navigacija - gali būti centruota, bet leidžiam slinkti jei reikia */
+  .days-nav,
+  .categories-nav {
+    justify-content: center;
+    padding-top: 8px;
+    padding-right: 8px;
+    padding-left: 8px;
+    overflow-x: auto;
+  }
+}
+
+/* 3. MAŽI EKRANAI IR PLANŠETĖS (Portretas): IKI 991.98px */
+@media (width <= 991.98px) {
+  /* *** DATOS VALDYMAS *** */
+
+  /* PORTRETAS: Rodo Headerio datą */
+  .header #header-date-display-row {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    margin-left: 10px;
+  }
+
+  /* PORTRETAS: Paslepia pagrindinio turinio datą */
+  .date-and-search-container #main-date-display-row {
+    display: none;
+  }
+
+  /* Paieškos blokas dedamas po data stulpeliu */
+  .date-and-search-container {
+    position: static;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+  }
+
+  .epg-search-block {
+    /* Išjungia absoliutų centravimą ir grąžina normalų srautą */
+    position: static;
+    left: auto;
+    width: 98%;
+    min-width: auto;
+    max-width: 340px;
+    margin: 10px 0;
+    transform: none;
+  }
+
+  /* *** PABAIGA DATOS VALDYMO *** */
+
+  /* Tinklelis ir navigacijos slinktis (nuo 991.98px žemyn) */
+  .channels-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Mobilus navigacijos stilius */
+  .days-nav,
+  .categories-nav {
+    gap: 4px;
+    justify-content: flex-start;
+    padding: 8px 4px;
+    font-size: 13px;
+
+    /* Leidžia slinkti siauruose ekranuose */
+    overflow-x: auto;
+    scrollbar-color: #aaaaaa transparent;
+    scrollbar-width: thin;
+  }
+
+  .day,
+  .cat {
+    min-width: 90px;
+    max-width: 100px;
+    margin: 4px 0;
+    padding: 5px 6px;
+    font-size: 13px;
+    white-space: normal;
+
+    /* MARGIN TIK VIRŠUS/APAČIA */
+  }
+
+  /* Header ir logo korekcijos */
+  .header .nav {
+    display: none;
+
+    /* Paslepiam pagrindinę nav */
+  }
+
+  .header {
+    padding: 10px;
+  }
+
+  .left {
+    flex-grow: 0;
+  }
+
+  .logo {
+    margin-right: 5px;
+    padding: 0 5px;
+    font-size: 20px;
+  }
+
+  .category-date-row {
+    flex-grow: 1;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0 5px;
+  }
+
+  .category-date-row .col-xs-2 {
+    flex-grow: 1;
+    min-width: auto;
+    padding: 0;
+  }
+
+  .date-title {
+    text-align: center;
+  }
+}
+
+/* 4. TELEFONAI: IKI 767.98px */
+@media (width <= 767.98px) {
+  /* Papildoma mygtukų korekcija */
+  .day,
+  .cat {
+    min-width: 70px;
+    max-width: 80px;
+    height: auto;
+    min-height: 35px;
+    margin: 4px 0;
+    padding: 4px;
+    font-size: 12px;
+  }
+
+  .category-date-row .col-xs-2 {
+    min-width: 100px;
+
+    /* Leidžiame datai turėti minimalų plotį */
+  }
+
+  /* Mažesnis padding navigacijoje */
+  .days-nav,
+  .categories-nav {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+}
+
+/* 5. LABAI MAŽI EKRANAI/TELEFONAI: IKI 575.98px */
+@media (width <= 575.98px) {
+  .channels-grid {
+    grid-template-columns: repeat(1, 1fr);
+    padding: 0 10px;
+
+    /* padding: 0 2px; */
+  }
+
+  .header {
+    padding: 10px;
+  }
+
+  .logo {
+    margin-right: 10px;
+    padding: 0 10px;
+  }
+
+  /* Siauresni mygtukai ir mažesnis padding */
+  .days-nav,
+  .categories-nav {
+    gap: 4px;
+    padding: 6px 4px;
+    font-size: 11px;
+  }
+
+  .day,
+  .cat {
+    min-width: 60px;
+    max-width: 70px;
+    height: auto;
+    min-height: 30px;
+    margin: 4px 0;
+    padding: 4px 5px;
+    font-size: 11px;
+    white-space: normal;
+  }
+}

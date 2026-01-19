@@ -1,0 +1,134 @@
+/* BURGER MENIU STILIAI */
+.burger,
+.footer-burger {
+	position: relative;
+	z-index: 50;
+	display: none;
+	justify-content: flex-end;
+	align-items: center;
+	width: 30px;
+	height: 18px;
+	cursor: pointer;
+}
+
+.burger span,
+.footer-burger span {
+	width: 80%;
+	height: 2px;
+	background-color: #faf6f2;
+	transform: scale(1);
+}
+
+.burger::before,
+.burger::after,
+.footer-burger::before,
+.footer-burger::after {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 2px;
+	background-color: #faf6f2;
+	transition: all .3s ease 0s;
+}
+
+.burger::before,
+.footer-burger::before {
+	top: 0;
+}
+
+.burger::after,
+.footer-burger::after {
+	bottom: 0;
+}
+
+/* Aktyvios burger animacijos */
+.burger.active span,
+.footer-burger.active span {
+	transform: scale(0);
+}
+
+.burger.active::before,
+.footer-burger.active::before {
+	top: 50%;
+	transform: rotate(-45deg) translate(0, -50%);
+}
+
+.burger.active::after,
+.footer-burger.active::after {
+	bottom: 50%;
+	transform: rotate(45deg) translate(0, 50%);
+}
+
+/* RESPONSIVE DIZAINAS */
+@media (width <= 991.98px) {
+	.burger,
+	.footer-burger {
+		display: flex;
+	}
+
+	.nav {
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 50;
+		display: none;
+		flex-direction: column;
+		width: 30%;
+		height: 35%;
+		padding: 50px 40px;
+		background: rgb(0 0 0 / .6);
+		overflow-y: auto;
+		animation: headerBurgerAnimation .4s;
+	}
+
+	.nav a {
+		flex-direction: column;
+		row-gap: 30px;
+	}
+
+	.footer-nav {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		z-index: 50;
+		display: none;
+		flex-direction: column;
+		align-items: flex-start;
+		width: 100%;
+		height: 35%;
+		padding: 50px 40px;
+		background: rgb(0 0 0 / .6);
+		overflow-y: auto;
+		animation: footerBurgerAnimation .4s;
+	}
+
+	.footer-nav a {
+		margin-bottom: 20px;
+	}
+
+	.footer-nav-links {
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+/* ANIMACIJOS */
+@keyframes header-burger-animation {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes footer-burger-animation {
+	from {
+		transform: translateY(100%);
+	}
+
+	to {
+		transform: translateY(0);
+	}
+}
