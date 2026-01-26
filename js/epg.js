@@ -1,6 +1,3 @@
-// epg.js (ATNAUJINTAS VISAS FAILAS)
-
-// Konfigūracija, susiejanti mygtukų pavadinimus su "slug"
 const categorySlugMap = {
   VISKAS: "viskas",
   LIETUVIŠKI: "lietuviski",
@@ -10,10 +7,9 @@ const categorySlugMap = {
   VAIKAMS: "vaikams",
   DOKUMENTIKA: "dokumentika",
   UKRAINA: "ukraina",
-  TOP: "top", // Pridėta 'TOP' jei naudojate slug
+  TOP: "top",
 };
 
-// Programos kategorijos, skirtos filtravimui viduje kanalų (kai slug nenaudojamas)
 const categoryMap = {
   VISKAS: [],
   LIETUVIŠKI: ["Lietuviški", "Lietuvių kalba"],
@@ -46,7 +42,7 @@ const categoryMap = {
   VAIKAMS: ["Vaikams", "Animacija", "Animaciniai"],
   DOKUMENTIKA: ["Dokumentika", "Dokumentiniai", "Gamtos"],
   UKRAINA: [],
-  TOP: [], // Palikta tuščia, jei filtruojama per kanalų ID
+  TOP: [],
 };
 
 let channels = {};
@@ -54,10 +50,6 @@ let programmes = [];
 let selectedDate = null;
 let selectedCategory = "VISKAS";
 let searchQuery = "";
-
-// ------------------------------------------------------
-// Pagalbinės funkcijos
-// ------------------------------------------------------
 
 function getUniqueDates(programmes) {
   const dates = new Set();
@@ -69,7 +61,6 @@ function getUniqueDates(programmes) {
   return [...dates].sort();
 }
 
-// Funkcija, kurią naudos daymenu.js, kad pakeistų globalią datą
 function setSelectedDate(date) {
   selectedDate = date;
 }
@@ -126,13 +117,9 @@ function getNowProgrammeIndex(prgs) {
   return -1;
 }
 
-// ------------------------------------------------------
-// Sinchronizuoja aktyvias klases tarp abiejų navigacijų
-// ------------------------------------------------------
 function syncCategories(category) {
   const categoryUpper = category.toUpperCase();
 
-  // Headerio nuorodos
   document.querySelectorAll(".nav a").forEach((link) => {
     link.classList.remove("active");
     if (link.dataset.cat && link.dataset.cat.toUpperCase() === categoryUpper) {
@@ -140,7 +127,6 @@ function syncCategories(category) {
     }
   });
 
-  // Apatiniai mygtukai
   document.querySelectorAll(".categories-nav .cat").forEach((button) => {
     button.classList.remove("active");
     if (button.dataset.cat.toUpperCase() === categoryUpper) {
@@ -149,16 +135,12 @@ function syncCategories(category) {
   });
 }
 
-// ------------------------------------------------------
-// Centruoja aktyvų kategorijos mygtuką apatinėje juostoje
-// ------------------------------------------------------
 function centerActiveCategory(category) {
   const container = document.querySelector("#categories-nav");
   if (!container) {
     return;
   }
 
-  // Paieškokite aktyvaus mygtuko pagal duotą kategoriją (naudojam upper-case)
   const activeButton = container.querySelector(
     `[data-cat="${category.toUpperCase()}"]`,
   );
@@ -166,16 +148,13 @@ function centerActiveCategory(category) {
     return;
   }
 
-  // Naudojame setTimeout, kad užtikrinti, jog CSS renderinimas įvyko
   setTimeout(() => {
     const containerWidth = container.clientWidth;
     const buttonOffsetLeft = activeButton.offsetLeft;
     const buttonWidth = activeButton.offsetWidth;
 
-    // Ideali centrinė pozicija (mygtukas centre)
     let scrollLeft = buttonOffsetLeft - containerWidth / 2 + buttonWidth / 2;
 
-    // Ribojame slinkimą, kad neiššoktų už kraštų
     if (scrollLeft < 0) {
       scrollLeft = 0;
     }
@@ -184,17 +163,12 @@ function centerActiveCategory(category) {
       scrollLeft = maxScroll;
     }
 
-    // Sklandus slinkimas
     container.scroll({
       left: scrollLeft,
       behavior: "smooth",
     });
   }, 50);
 }
-
-// ------------------------------------------------------
-// Duomenų užkrovimas
-// ------------------------------------------------------
 
 const finalEpgUrl = typeof epgUrl !== "undefined" ? epgUrl : "epg.xml";
 
@@ -210,7 +184,6 @@ fetch(finalEpgUrl)
     const parser = new DOMParser();
     const xml = parser.parseFromString(xmlText, "text/xml");
 
-    // Kanalai
     xml.querySelectorAll("channel").forEach((ch) => {
       const id = ch.getAttribute("id");
       const name =
@@ -221,7 +194,6 @@ fetch(finalEpgUrl)
       channels[id] = { id, name, icon };
     });
 
-    // Programos
     programmes = [...xml.querySelectorAll("programme")].map((prg) => {
       const channel = prg.getAttribute("channel");
       const start = prg.getAttribute("start");
@@ -236,27 +208,18 @@ fetch(finalEpgUrl)
       return { channel, start, stop, title, desc, date, icon, categories };
     });
 
-    // Dienos atvaizdavimas ir pradinės dienos nustatymas
     if (typeof renderDaysNavDayMenu !== "undefined") {
       renderDaysNavDayMenu(programmes);
     } else {
-      // Jei daymenu.js neįkeltas (rezervas)
       const uniqueDates = getUniqueDates(programmes);
       selectedDate = uniqueDates[0];
     }
 
-    // Pirminis kanalų atvaizdavimas (po selectedDate nustatymo)
     renderChannels();
 
-    // Pirminė kategorijos sinchronizacija ir centravimas
     syncCategories(selectedCategory);
     centerActiveCategory(selectedCategory);
 
-    // ------------------------------------------------------
-    // Event listeneriai
-    // ------------------------------------------------------
-
-    // Kategorijų navigacija (categories-nav)
     document
       .querySelector("#categories-nav")
       ?.addEventListener("click", (e) => {
@@ -264,7 +227,6 @@ fetch(finalEpgUrl)
         if (targetButton) {
           selectedCategory = targetButton.dataset.cat;
 
-          // SINCHRONIZACIJA IR CENTRAVIMAS
           syncCategories(selectedCategory);
           centerActiveCategory(selectedCategory);
 
@@ -272,21 +234,18 @@ fetch(finalEpgUrl)
         }
       });
 
-    // Header nav (su burger)
     document.querySelector(".nav")?.addEventListener("click", (e) => {
       const targetLink = e.target.closest("a");
       if (targetLink) {
         selectedCategory = targetLink.dataset.cat;
 
-        // SINCHRONIZACIJA IR CENTRAVIMAS
         syncCategories(selectedCategory);
         centerActiveCategory(selectedCategory);
 
         renderChannels();
 
-        // uždarom burger meniu (jei aktyvus)
         const burger = document.querySelector(".burger");
-        const navElement = document.querySelector(".nav"); // Gali naudoti .nav, bet geriau ID: document.getElementById('nav')
+        const navElement = document.querySelector(".nav");
 
         if (burger && navElement && burger.classList.contains("active")) {
           burger.classList.remove("active");
@@ -295,7 +254,6 @@ fetch(finalEpgUrl)
       }
     });
 
-    // Paieška
     document.querySelector("#epg-search")?.addEventListener("input", (e) => {
       searchQuery = e.target.value.trim();
       renderChannels();
@@ -304,10 +262,6 @@ fetch(finalEpgUrl)
   .catch((error) => {
     console.error("Klaida įkeliant arba apdorojant EPG duomenis:", error);
   });
-
-// ------------------------------------------------------
-// Atvaizdavimas
-// ------------------------------------------------------
 
 function renderChannels() {
   const container = document.querySelector("#channels");
@@ -417,14 +371,11 @@ function renderChannels() {
   });
 }
 
-// Akordeonas
-// Akordeonas (Pataisyta: Išlaiko aprašymus atidarytus)
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("program-title-btn")) {
     const key = e.target.dataset.prg;
     const desc = document.getElementById("desc-" + key);
     if (desc) {
-      // Dabar atidaromas/uždarymas veiks tik ant paspausto elemento
       e.target.classList.toggle("open");
       desc.classList.toggle("open");
     }

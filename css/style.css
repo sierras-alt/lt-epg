@@ -28,18 +28,6 @@ body {
   clip-path: inset(100%);
 }
 
-/* Slinkimo juostos stilius */
-
-/* ::-webkit-scrollbar {
-  height: 7px;
-  background-color: #fff;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #e0e0e0;
-  border-radius: 4px;
-} */
-
 .header {
   position: sticky;
   top: 0;
@@ -120,7 +108,6 @@ body {
     border-color 0.2s ease;
 }
 
-/* Datos rodymas Headeryje - PAGAL NUSTATYMUS VISADA PASLĖPTA, išskyrus mažus ekranus */
 #header-date-display-row {
   display: none;
 }
@@ -134,12 +121,11 @@ body {
   justify-content: center;
   align-items: center;
   max-width: 1150px;
-  margin: 10px auto; /* Centruojame bloką puslapyje */
-  padding: 4px 0; /* Horizontalus padding pašalintas arba sumažintas */
+  margin: 10px auto;
+  padding: 4px 0;
   background: inherit;
 }
 
-/* Archyvo rodyklės (daymenu) */
 .daymenu {
   display: flex;
   flex-shrink: 0;
@@ -168,7 +154,6 @@ body {
   background-color: #e0e0e0;
 }
 
-/* Datos ir kategorijų mygtukų bendras stilius */
 .day,
 .cat {
   display: flex;
@@ -208,7 +193,6 @@ body {
   box-shadow: 0 4px 12px rgb(25 118 210 / 0.12);
 }
 
-/* Dienų ir Kategorijų navigacijos bendros savybės */
 .days-nav,
 .categories-nav {
   display: flex;
@@ -310,7 +294,6 @@ body {
   box-shadow: 0 4px 12px rgb(60 60 60);
 }
 
-/* Datos ir kategorijų eilutė (Header viduje) */
 .category-date-row {
   display: flex;
   flex-grow: 1;
@@ -349,12 +332,7 @@ body {
 }
 
 .categories-nav {
-  /* margin-left: 70px; */
-
-  /* margin-right: 70px; */
   display: flex;
-
-  /* box-shadow: 0 2px 4px rgb(0 0 0 / 0.1); */
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: center;
@@ -366,7 +344,6 @@ body {
 }
 
 .categories-nav .cat {
-  /* height: auto; Leidžia aukščiui plėstis pagal turinį */
   flex-shrink: 0;
   min-height: 50px;
 }
@@ -385,21 +362,13 @@ body {
   box-shadow: 0 4px 12px rgb(60 60 60);
 }
 
-/* ============================== */
-
-/* MAIN TURINYS IR PAIEŠKA (ATNAUJINTAS CENTRAVIMAS) */
-
-/* ============================== */
-
 .main {
   flex-grow: 1;
   padding: 20px 0 40px;
   background-color: #f8f8f8;
 }
 
-/* Pagrindinis konteineris: Flexbox + relative pozicija */
 .date-and-search-container {
-  /* Būtina tiksliam centravimui */
   position: relative;
   display: flex;
   justify-content: flex-start;
@@ -410,7 +379,6 @@ body {
   padding: 0 12px 30px;
 }
 
-/* Datos blokas (kairėje) - PAGAL NUSTATYMUS VISADA PASLĖPTA, išskyrus didelius ekranus */
 #main-date-display-row {
   z-index: 10;
   display: none;
@@ -421,12 +389,9 @@ body {
   padding: 0;
   background: none;
   box-shadow: none;
-
-  /* Pagrindinė taisyklė: paslepiame, vėliau rodoma media query */
 }
 
 #main-date-display-row .col-xs-2 {
-  /* nauji */
   flex-shrink: 0;
   min-width: auto;
   padding: 0;
@@ -450,13 +415,9 @@ body {
   font-weight: 400;
 }
 
-/* Paieškos blokas - TIKSLUS CENTRAVIMAS */
 .epg-search-block {
-  /* Centravimo logika */
   position: absolute;
   left: 50%;
-
-  /* Panaikiname seną margin */
   z-index: 5;
   width: auto;
   min-width: 340px;
@@ -465,7 +426,6 @@ body {
   transform: translateX(-50%);
 }
 
-/* HTML faile esantis tuščias tarpas tampa nereikalingas, jei naudojama position: absolute */
 .flex-spacer {
   display: none;
 }
@@ -497,12 +457,6 @@ body {
   margin: 0 auto;
   padding: 0 12px;
 }
-
-/* ============================== */
-
-/* KANALO KORTELĖ */
-
-/* ============================== */
 
 .channel {
   display: flex;
@@ -541,8 +495,6 @@ body {
   background: #d32f2f;
   border-radius: 2px;
 }
-
-/* Adaptyvaus paveikslėlio taisyklės */
 .program-image {
   margin: 12px 0;
   text-align: center;
@@ -605,12 +557,6 @@ body {
   display: flex;
 }
 
-/* ============================== */
-
-/* FOOTER */
-
-/* ============================== */
-
 .footer {
   margin-top: auto;
   padding: 10px 0;
@@ -618,28 +564,17 @@ body {
   text-align: center;
   background: rgb(0 0 0 / 0.6);
 }
-
-/* ============================== */
-
-/* MEDIA UŽKLAUSOS (RESPONSIVE) */
-
-/* ============================== */
-
-/* 2. VIDUTINIAI EKRANAI IR PLANŠETĖS (Gulsčioji versija): NUO 992px */
 @media (width >= 992px) {
-  /* Paslepia Headerio datą (Gulsčioji versija) */
   .header #header-date-display-row {
     display: none;
   }
 
-  /* Rodo pagrindinio turinio datą (Gulsčioji versija) */
   .date-and-search-container #main-date-display-row {
     z-index: 10;
     display: flex;
     flex-shrink: 0;
   }
 
-  /* Centravimas ir slinkties išjungimas dideliems ekranams */
   .days-nav,
   .categories-nav {
     gap: 5px;
@@ -654,13 +589,10 @@ body {
   }
 }
 
-/* 2. VIDUTINIAI EKRANAI: 992px iki 1199.98px (3 stulpeliai) */
 @media (width >= 992px) and (width <= 1199.98px) {
   .channels-grid {
     grid-template-columns: repeat(3, 1fr);
   }
-
-  /* Meniu navigacija - gali būti centruota, bet leidžiam slinkti jei reikia */
   .days-nav,
   .categories-nav {
     justify-content: center;
@@ -671,11 +603,7 @@ body {
   }
 }
 
-/* 3. MAŽI EKRANAI IR PLANŠETĖS (Portretas): IKI 991.98px */
 @media (width <= 991.98px) {
-  /* *** DATOS VALDYMAS *** */
-
-  /* PORTRETAS: Rodo Headerio datą */
   .header #header-date-display-row {
     display: flex;
     flex-grow: 1;
@@ -683,12 +611,10 @@ body {
     margin-left: 10px;
   }
 
-  /* PORTRETAS: Paslepia pagrindinio turinio datą */
   .date-and-search-container #main-date-display-row {
     display: none;
   }
 
-  /* Paieškos blokas dedamas po data stulpeliu */
   .date-and-search-container {
     position: static;
     flex-direction: column;
@@ -698,7 +624,6 @@ body {
   }
 
   .epg-search-block {
-    /* Išjungia absoliutų centravimą ir grąžina normalų srautą */
     position: static;
     left: auto;
     width: 98%;
@@ -707,23 +632,16 @@ body {
     margin: 10px 0;
     transform: none;
   }
-
-  /* *** PABAIGA DATOS VALDYMO *** */
-
-  /* Tinklelis ir navigacijos slinktis (nuo 991.98px žemyn) */
   .channels-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Mobilus navigacijos stilius */
   .days-nav,
   .categories-nav {
     gap: 4px;
     justify-content: flex-start;
     padding: 8px 4px;
     font-size: 13px;
-
-    /* Leidžia slinkti siauruose ekranuose */
     overflow-x: auto;
     scrollbar-color: #aaaaaa transparent;
     scrollbar-width: thin;
@@ -737,15 +655,10 @@ body {
     padding: 5px 6px;
     font-size: 13px;
     white-space: normal;
-
-    /* MARGIN TIK VIRŠUS/APAČIA */
   }
 
-  /* Header ir logo korekcijos */
   .header .nav {
     display: none;
-
-    /* Paslepiam pagrindinę nav */
   }
 
   .header {
@@ -780,9 +693,7 @@ body {
   }
 }
 
-/* 4. TELEFONAI: IKI 767.98px */
 @media (width <= 767.98px) {
-  /* Papildoma mygtukų korekcija */
   .day,
   .cat {
     min-width: 70px;
@@ -796,11 +707,8 @@ body {
 
   .category-date-row .col-xs-2 {
     min-width: 100px;
-
-    /* Leidžiame datai turėti minimalų plotį */
   }
 
-  /* Mažesnis padding navigacijoje */
   .days-nav,
   .categories-nav {
     padding: 6px 8px;
@@ -808,13 +716,10 @@ body {
   }
 }
 
-/* 5. LABAI MAŽI EKRANAI/TELEFONAI: IKI 575.98px */
 @media (width <= 575.98px) {
   .channels-grid {
     grid-template-columns: repeat(1, 1fr);
     padding: 0 10px;
-
-    /* padding: 0 2px; */
   }
 
   .header {
@@ -826,7 +731,6 @@ body {
     padding: 0 10px;
   }
 
-  /* Siauresni mygtukai ir mažesnis padding */
   .days-nav,
   .categories-nav {
     gap: 4px;
